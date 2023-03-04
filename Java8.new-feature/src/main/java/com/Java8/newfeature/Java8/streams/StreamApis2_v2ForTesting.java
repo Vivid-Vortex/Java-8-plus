@@ -26,6 +26,7 @@ import com.Java8.newfeature.Java8.beans.Employees;
 import com.Java8.newfeature.Java8.dblayer.DbLayer;
 
 import lombok.experimental.UtilityClass;
+import lombok.extern.log4j.Log4j2;
 /**
  * INTERMEDIATE OPERATION/METHODS ALWAYS RETURNS A NEW STREAM.
  *  Most of the times, these operations are lazy in nature, so they start producing new stream elements and send it to the next operation.
@@ -41,6 +42,7 @@ import lombok.experimental.UtilityClass;
  *  
  * */
 @SuppressWarnings("unused")
+@Log4j2
 //@UtilityClass
 public class StreamApis2_v2ForTesting {
 	
@@ -56,22 +58,36 @@ public class StreamApis2_v2ForTesting {
    * It is intermediate, so will return stream<T>
    */
 	public void testMap() {
-		System.out.println(dbLayer);
+//		System.out.println(dbLayer.toString());
 		List<Customer> custStrem = dbLayer.getCustStrema();
+		custStrem.stream().peek(s -> System.out.println(s)).collect(Collectors.toList());
+		System.out.println(custStrem+"\n\n");
 		
 		//List of Customer to List of String -> Data Transformation
-		List<String> emails = custStrem.stream().map(cust -> cust.getEmail()).collect(Collectors.toList());
-		System.out.println("Fething list of emails from List of Customer into separate list as List<emails> :"+ emails);
+		/*
+		 * List<String> emails = custStrem.stream() .peek(s -> System.out.println(s))
+		 * .map(cust -> cust.getEmail()) .peek(s -> System.out.
+		 * println("Fething list of emails from List of Customer into separate list as List<emails> :"
+		 * + s+"\n")) .collect(Collectors.toList());
+		 */
 		
-		List<Integer> ids = custStrem.stream().map(id -> id.getId()).collect(Collectors.toList());
-		System.out.println("\n\nFething list of ids from List of Customer into separate list as List<ids> :"+ ids);
-		
-		List<String> names = custStrem.stream().map(name -> name.getName()).collect(Collectors.toList());
-		System.out.println("\n\nFething list of names from List of Customer into separate list as List<names> :"+ names);
-		
-		List<List<String>> phoneNumbersList = custStrem.stream().map(phoneNumber -> phoneNumber.getPhoneNumbers()).collect(Collectors.toList());
-		System.out.println("\n\nFething list of phoneNumbers from List of Customer into separate list as List<List<phoneNumbers>> :"+ phoneNumbersList);
-		
+		/*
+		 * List<Integer> ids = custStrem.stream() .peek(s -> System.out.println(s))
+		 * .map(id -> id.getId()) .peek(s -> System.out.println(s+"\n"))
+		 * .collect(Collectors.toList());
+		 */
+	
+		/*
+		 * List<String> names = custStrem.stream() .peek(s -> System.out.println(s))
+		 * .map(name -> name.getName()) .peek(s -> System.out.println(s+"\n"))
+		 * .collect(Collectors.toList());
+		 */
+	
+		/*
+		 * List<List<String>> phoneNumbersList = custStrem.stream() .peek(s ->
+		 * System.out.println(s)) .map(phoneNumber -> phoneNumber.getPhoneNumbers())
+		 * .peek(s -> System.out.println(s+"\n")) .collect(Collectors.toList());
+		 */
 	}
 	/**
 	 * Map is used for transforming the data from one form to another. 
@@ -94,16 +110,30 @@ public class StreamApis2_v2ForTesting {
 		 * Case 2: You have List of List. Such as List<List<Customer>>. You have select customer with salary more than 70000.
 		 * */
 		List<Customer> custStrem = dbLayer.getCustStrema();
+		custStrem.stream().peek(s -> System.out.println(s)).collect(Collectors.toList());
+		System.out.println("\n\n");
 
 		//without flatmap
 		//Also called one to one mapping
-		List<List<String>> phoneNumbersList = custStrem.stream().map(phoneNumber -> phoneNumber.getPhoneNumbers()).collect(Collectors.toList());
-		System.out.println("\n\nFething list of phoneNumbers from List of Customer into separate list as List<List<phoneNumbers>> :"+ phoneNumbersList);
-		
+		/*
+		 * List<List<String>> phoneNumbersList = custStrem.stream() .peek(s ->
+		 * System.out.println(s)) .map(phoneNumber -> phoneNumber.getPhoneNumbers())
+		 * .peek(s -> System.out.println(s+"\n")) .collect(Collectors.toList());
+		 */
+				
 		//with flatmap
 		//Also called one to many mapping
-		List<String> phoneNumbers = custStrem.stream().flatMap(phoneNumber -> phoneNumber.getPhoneNumbers().stream()).collect(Collectors.toList());
-		System.out.println("\n\nFething list of phoneNumbers from List of Customer into separate list as List<phoneNumbers> :"+ phoneNumbers);
+		
+		/*
+		 * List<String> phoneNumbers = custStrem.stream() .peek(s ->
+		 * System.out.println(s)) .flatMap(phoneNumber ->
+		 * phoneNumber.getPhoneNumbers().stream()) .peek(s ->System.out.println(s+"\n"))
+		 * .collect(Collectors.toList());
+		 * 
+		 * log.info("\n\nPrinting flatmap values"+phoneNumbers);
+		 */
+		  
+		 
 		
 	}
 	
@@ -123,6 +153,8 @@ public class StreamApis2_v2ForTesting {
 		 * 
 		 * Case 2: You have List of List. Such as List<List<Customer>>. You have select customer with salary more than 70000.
 		 * */
+		//------------------------------------------------------
+		//Creating dummy List of List.
 		List<List<String>> strListOfList = new ArrayList<>();;
 		List<String> strList = new ArrayList<>();
 		strList.add("Apple");
@@ -133,10 +165,31 @@ public class StreamApis2_v2ForTesting {
 		strList2.add("Apple2");
 		strList2.add("Banana2");
 		strListOfList.add(strList2);
+		//------------------------------------------------------
+		/**
+		 * In below case, if you observe then It is printing complete stream of stream + flatmap.peek for one list of string inside list even though both
+		 * are seperate line of code,
+		 * and then it is jumping to another list of strings.
+		 */
+		log.info("List of List of Strings :\n"+strListOfList);
+//	1. 1(a)	
+	Stream<String> flatMap = strListOfList.stream()
+								.peek(s -> System.out.println("First Peek :"+s))
+								.flatMap(List::stream);
 		
-		Stream<String> flatMap = strListOfList.stream().flatMap(List::stream);
-		flatMap.map(str -> str.equals("Apple2")).findFirst();
+		log.info("Printing Stream of flatmap\t\n"+flatMap+"\n");
 		
+//		1. 1(b)
+		flatMap.peek(s -> System.out.println("Second Peek :"+s))
+		.map(str -> str.equals("Apple2"))
+		.collect(Collectors.toList());
+		
+	//Above line 1 is completed when terminal operation was invoked on that stream in 1.1(b)
+//		.findFirst();
+		//------------------------------------------------------
+		
+		//------------------------------------------------------
+		//Creating dummy List of List.
 		List<List<Employees>> empListOfList = new ArrayList<>();;
 		List<Employees> empList = new ArrayList<>();
 		empList.add(new Employees(0, null, null, 0));
@@ -147,14 +200,11 @@ public class StreamApis2_v2ForTesting {
 		empList2.add(new Employees(0, null, null, 0));
 		empList2.add(new Employees(0, null, null, 0));
 		empListOfList.add(empList2);
+		//------------------------------------------------------
 		
-		Stream<Employees> flatMap2 = empListOfList.stream().flatMap(List::stream);
-		List<Employees> collect = flatMap2.filter(emp -> emp.getName().equals("Aman")).collect(Collectors.toList());
-		
-		
-		
-		
-		
+//		Stream<Employees> flatMap2 = empListOfList.stream().flatMap(List::stream);
+//		List<Employees> collect = flatMap2.filter(emp -> emp.getName().equals("Aman")).collect(Collectors.toList());
+		//------------------------------------------------------
 	}
 	
 	
