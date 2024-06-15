@@ -356,6 +356,26 @@ public class StreamApis {
 				
 		
 	}
+
+	public void sortingListExampleUsingStreamApi() {
+		List<Employee> employees = Arrays.asList(
+		    new Employee("John", 50000),
+		    new Employee("Jane", 60000),
+		    new Employee("Mary", 55000),
+		    new Employee("Peter", 70000),
+		    new Employee("Paul", 65000)
+		);
+
+	        // Get the 3rd highest employee based on salary
+	        Optional<Employee> thirdHighestEmployee = employees.stream()
+	            .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+	            .skip(2)
+	            .findFirst();
+
+	        thirdHighestEmployee.ifPresent(employee -> 
+	            System.out.println("3rd Highest Employee: " + employee));
+	}
+	
 	public void sortMapUsingStreamApi() {
 		/** If comparing by Custom type as either key or value, pass below as argument(arg) in .sorted(Map.Entry.comparingByKey(arg))
 		 * .sorted(Map.Entry.comparingByKey(Comparator.comparing(Employees::getGrade))) 
