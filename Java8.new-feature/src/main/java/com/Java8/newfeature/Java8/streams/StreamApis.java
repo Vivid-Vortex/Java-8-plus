@@ -303,6 +303,47 @@ public class StreamApis {
 		}
 //		System.out.println(cust);
 	}
+
+//Some latest optional methods which makes easier to use optinal in programming
+
+//The orElse method returns the value if present, otherwise returns the provided default value.
+public void OrElseExample() {
+    
+        Optional<String> presentValue = Optional.of("Hello, World!");
+        Optional<String> emptyValue = Optional.empty();
+
+        // Example with present value
+        String result1 = presentValue.orElse("Default Value");
+        System.out.println(result1); // Prints: Hello, World!
+
+        // Example with empty value
+        String result2 = emptyValue.orElse("Default Value");
+        System.out.println(result2); // Prints: Default Value
+}
+
+//The orElseGet method returns the value if present, otherwise returns the result produced by the provided Supplier.
+public void OrElseGetExample() {
+  
+        Optional<String> presentValue = Optional.of("Hello, World!");
+        Optional<String> emptyValue = Optional.empty();
+
+        // Example with present value
+        String result1 = presentValue.orElseGet(() -> "Generated Default Value");
+        System.out.println(result1); // Prints: Hello, World!
+
+        // Example with empty value
+        String result2 = emptyValue.orElseGet(() -> "Generated Default Value");
+        System.out.println(result2); // Prints: Generated Default Value
+ 
+}
+
+//The orElseThrow method returns the value if present, otherwise throws an exception created by the provided Supplier.
+public void OrElseThrowExample() {
+       repository.getProductByName(someValue).orElseThrow(() -> new ResourceNotFountException());
+}
+
+
+
 	
 	
 	public void writeLogsToLogsFile(Exception e) throws FileNotFoundException {
