@@ -1,1 +1,29 @@
 
+//sql query to get the thrid highest employee as per salary
+
+SELECT salary
+FROM (
+    SELECT DISTINCT salary
+    FROM employees
+    ORDER BY salary DESC
+    LIMIT 3
+) AS temp
+ORDER BY salary ASC
+LIMIT 1;
+
+
+//o get the entire row of the employee with the third highest salary
+
+SELECT *
+FROM employees
+WHERE salary = (
+    SELECT salary
+    FROM (
+        SELECT DISTINCT salary
+        FROM employees
+        ORDER BY salary DESC
+        LIMIT 3
+    ) AS temp
+    ORDER BY salary ASC
+    LIMIT 1
+);
