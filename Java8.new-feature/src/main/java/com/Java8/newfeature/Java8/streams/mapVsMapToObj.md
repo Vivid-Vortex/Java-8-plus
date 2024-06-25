@@ -134,6 +134,8 @@ LongStream longStream = stringStream.mapToLong(Long::parseLong);
 3. **Purpose**:
    - Use `.mapToObj()` when you need to convert primitive values to objects.
    - Use `.mapToDouble()`, `.mapToInt()`, and `.mapToLong()` when you need to convert elements to their respective primitive types for numerical processing.
+     For example, First if  you want to convert any primitive type given in string to it's actual primitive type so as to do the mathematical operation
+     second, if you want to convert one primitive type to another such as int to double, double to float etc.
 
 ### Summary
 
