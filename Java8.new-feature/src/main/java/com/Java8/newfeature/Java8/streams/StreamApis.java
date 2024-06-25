@@ -155,7 +155,8 @@ public class StreamApis {
 	}
 	
 	
-	
+	// Please check below link to understand difference between map and mapToObj.
+	// https://github.com/Code-Deepak-Code/Java8JuniSpringbootCrud/blob/main/Java8.new-feature/src/main/java/com/Java8/newfeature/Java8/streams/mapVsMapToObj.md
 	public void testMapToObj() {
 		
 		List<Customer> collect = IntStream.rangeClosed(1, 50)
