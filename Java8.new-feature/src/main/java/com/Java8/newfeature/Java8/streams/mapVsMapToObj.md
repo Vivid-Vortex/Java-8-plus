@@ -141,5 +141,6 @@ LongStream longStream = stringStream.mapToLong(Long::parseLong);
 
 - **Use `.mapToObj()`**: When you are working with a primitive stream and need to convert elements to objects.
 - **Use `.mapToDouble()`, `.mapToInt()`, `.mapToLong()`**: When you need to perform numerical operations on elements and require a primitive stream (`DoubleStream`, `IntStream`, or `LongStream`).
+- In short, first if you want to convert any primitive type given in string to it's actual primitive type so as to do the mathematical operation second, if you want to convert one primitive type to another such as int to double, double to float etc.
 
 Understanding these methods helps in effectively transforming and processing streams in Java, making your code more efficient and easier to read.
