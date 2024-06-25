@@ -199,7 +199,7 @@ public class StreamApis {
 	
 //		Optional<Integer> maxValueUsingAccumulator = numbers.stream().reduce(Integer::max);
 //		System.out.println(maxValueUsingAccumulator.get());
-	
+//		-------------------------------- Good Interview Question ------------------------------------
 //		List<String> toFindLongestString = Arrays.asList("coreJava", "Spring", "Hibernate");
 //		String string = toFindLongestString.stream()
 //				.reduce((word1,word2) -> word1.length()> word2.length() ? word1 : word2)
