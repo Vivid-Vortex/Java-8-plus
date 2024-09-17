@@ -410,7 +410,8 @@ public void OrElseThrowExample() {
 
 	        // Get the 3rd highest employee based on salary
 	        Optional<Employee> thirdHighestEmployee = employees.stream()
-	            .sorted(Comparator.comparingDouble(Employee::getSalary).reversed()) // Can I use Comparator.comparing instead of Comparator.comparingDouble. To know more go the this link. link is 	            .skip(2)
+	            .sorted(Comparator.comparingDouble(Employee::getSalary).reversed()) // Can I use Comparator.comparing instead of Comparator.comparingDouble. To know more go the this link. link is https://github.com/Code-Deepak-Code/Java-8-plus/blob/main/Java8.new-feature/src/main/java/com/Java8/newfeature/Java8/streams/StreamAPis_note_1.md	            
+		    .skip(2)
 	            .findFirst();
 
 	        thirdHighestEmployee.ifPresent(employee -> 
