@@ -79,5 +79,70 @@ public class Person {
     }
 }
 
+-----------------------------------------------
+String str = "this is java his is java and java is best for enterprise programming"
+
+find the higherst occuring word in above string. 
+
+first using normal java and then using java streams
+
+Using Streams Api :-
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "this is java his is java and java is best for enterprise programming";
+        
+        // Find the word with the highest frequency using streams
+        String mostFrequentWord = Arrays.stream(str.split("\\s+"))
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+            .entrySet()
+            .stream()
+            .max(Map.Entry.comparingByValue())
+            .get()
+            .getKey();
+        
+        System.out.println("Most frequent word: " + mostFrequentWord);
+    }
+}
+
+
+Using plain Java :-
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        String str = "this is java his is java and java is best for enterprise programming";
+        String[] words = str.split("\\s+");  // Split the string by spaces
+        
+        // Create a HashMap to store the frequency of each word
+        Map<String, Integer> wordCount = new HashMap<>();
+        
+        // Count the frequency of each word
+        for (String word : words) {
+            wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+        }
+        
+        // Find the word with the highest frequency
+        String mostFrequentWord = null;
+        int maxCount = 0;
+        for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                mostFrequentWord = entry.getKey();
+                maxCount = entry.getValue();
+            }
+        }
+        
+        System.out.println("Most frequent word: " + mostFrequentWord + " (occurrences: " + maxCount + ")");
+    }
+}
+-----------------------------------------------
+
+
+
 
 
