@@ -238,7 +238,7 @@ By replacing Reactor Bus with **Project Reactor's Flux and Mono**, you can creat
 If you observe from step 1 till Step 4, that we haven't connected all the three layers say validattion, mapping and persistence with each other, or in other words we are not calling these methods in one layer say from validation to the method in another layer say mapping which is unlike to the traditional way of implementing.
 This approach reduce coupling between the layers and makes the code more modular and testable.
 
-In Step 4, we are first calling validator, then output of it passing to mapper and then output of mapper passing to persistence. This is the beauty of reactive programming where we are chaining the operations and the output of one operation is input to another operation which is persistance.
+In [Step 4](#step-4-combine-the-layers-in-a-reactive-pipeline), we are first calling validator, then output of it passing to mapper and then output of mapper passing to persistence. This is the beauty of reactive programming where we are chaining the operations and the output of one operation is input to another operation which is persistance.
 
 ```java
 public Flux<MyEntity> processEvents() {
