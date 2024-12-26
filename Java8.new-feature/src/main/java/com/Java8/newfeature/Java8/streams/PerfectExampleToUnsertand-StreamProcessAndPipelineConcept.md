@@ -1,12 +1,12 @@
 Perfect example to understand pipeline concept is brought in by Stream API in Java 8.
 ---
 ###### **Note**: Below example uses Reactive programming concepts which in turn also uses same concepts of stream processing using pipeline. Despite of this, below example is a perfect example to understand pipeline concept and is applicable to any type whether reactive or non-reactive.
+
 ---
 ### **Question:**
 I have a microservice that consumes events from a Kafka consumer and then performs validation, mapping, and persistence. I want to separate these layers using Reactor Core (`Mono` and `Flux`) instead of Reactor Bus. How can I do so? Please give a step-by-step detailed explanation along with the Spring Boot Gradle libraries involved.
 
 ---
-
 ### **Answer:**
 
 To achieve a layered design for your microservice using Reactor Core (`Mono` and `Flux`), you can follow these steps:
