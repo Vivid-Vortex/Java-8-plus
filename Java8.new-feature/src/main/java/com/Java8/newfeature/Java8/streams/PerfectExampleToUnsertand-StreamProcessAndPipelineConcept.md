@@ -1,4 +1,4 @@
-Perfect example to understand pipeline concept is brought in by Stream API in Java 8.
+Perfect example to understand pipeline concept brought in by Stream API in Java 8.
 ---
 ###### **Note**: Below example uses Reactive programming concepts which in turn also uses same concepts of stream processing using pipeline. Despite of this, below example is a perfect example to understand pipeline concept and is applicable to any type whether reactive or non-reactive.
 
